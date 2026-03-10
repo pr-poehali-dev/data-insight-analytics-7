@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import Section from './Section'
 import Layout from './Layout'
+import OsintToolsSection from './OsintToolsSection'
 import { sections } from './sections'
 
 export default function LandingPage() {
@@ -44,7 +45,7 @@ export default function LandingPage() {
   return (
     <Layout>
       <nav className="fixed top-0 right-0 h-screen flex flex-col justify-center z-30 p-4">
-        {sections.map((section, index) => (
+        {[...sections.slice(0, 4), { id: 'osint' }, ...sections.slice(4)].map((section, index) => (
           <button
             key={section.id}
             className={`w-3 h-3 rounded-full my-2 transition-all ${
@@ -62,11 +63,19 @@ export default function LandingPage() {
         ref={containerRef}
         className="h-full overflow-y-auto snap-y snap-mandatory"
       >
-        {sections.map((section, index) => (
+        {sections.slice(0, 4).map((section, index) => (
           <Section
             key={section.id}
             {...section}
             isActive={index === activeSection}
+          />
+        ))}
+        <OsintToolsSection isActive={activeSection === 4} />
+        {sections.slice(4).map((section, index) => (
+          <Section
+            key={section.id}
+            {...section}
+            isActive={index + 5 === activeSection}
           />
         ))}
       </div>
