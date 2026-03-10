@@ -7,7 +7,6 @@ export default {
 		"./components/**/*.{ts,tsx}",
 		"./app/**/*.{ts,tsx}",
 		"./src/**/*.{ts,tsx}",
-			"./1773150058339130797.html"
 	],
 	prefix: "",
 	theme: {
@@ -18,21 +17,8 @@ export default {
 				'2xl': '1400px'
 			}
 		},
-		fontFamily: {
-			montserrat: ['Montserrat', 'sans-serif'],
-		},
 		extend: {
 			colors: {
-				navy: {
-					DEFAULT: '#1a2744',
-					light: '#243460',
-					dark: '#111b30',
-				},
-				lime: {
-					DEFAULT: '#7ed321',
-					light: '#9de84a',
-					dark: '#5fa018',
-				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
