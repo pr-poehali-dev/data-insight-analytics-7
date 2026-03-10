@@ -1,0 +1,12 @@
+{
+  "tests": [
+    {
+      "name": "Поиск по ИНН",
+      "method": "POST",
+      "path": "/",
+      "body": {"query": "7707083893"},
+      "expectedStatus": 200,
+      "bodyMatcher": "partial"
+    }
+  ]
+}

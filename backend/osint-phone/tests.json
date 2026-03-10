@@ -1,0 +1,12 @@
+{
+  "tests": [
+    {
+      "name": "Поиск по номеру телефона",
+      "method": "POST",
+      "path": "/",
+      "body": {"query": "+79001234567"},
+      "expectedStatus": 200,
+      "bodyMatcher": "partial"
+    }
+  ]
+}
