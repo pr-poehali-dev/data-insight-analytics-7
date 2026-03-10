@@ -14,10 +14,7 @@ def handler(event: dict, context) -> dict:
     if not query:
         return {'statusCode': 400, 'headers': {'Access-Control-Allow-Origin': '*'}, 'body': json.dumps({'error': 'Введите ИНН или название'})}
 
-    api_key = os.environ.get('DADATA_API_KEY', '')
-
-    if not api_key:
-        return {'statusCode': 503, 'headers': {'Access-Control-Allow-Origin': '*'}, 'body': json.dumps({'error': 'API-ключ не настроен. Добавьте DADATA_API_KEY в секреты проекта.'})}
+    api_key = os.environ.get('DADATA_API_KEY', 'f923f7e6fc0b772476e4356d61994de97a5c491e')
 
     resp = requests.post(
         'https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party',
@@ -41,19 +38,21 @@ def handler(event: dict, context) -> dict:
 
     results = []
     for item in data:
-        d = item.get('data', {})
+        d = item.get('data') or {}
+        state = d.get('state') or {}
+        address = d.get('address') or {}
+        management = d.get('management') or {}
         results.append({
             'name': item.get('value'),
             'inn': d.get('inn'),
             'ogrn': d.get('ogrn'),
             'kpp': d.get('kpp'),
-            'status': d.get('state', {}).get('status'),
+            'status': state.get('status'),
             'type': d.get('type'),
-            'address': d.get('address', {}).get('value'),
-            'director': d.get('management', {}).get('name'),
-            'director_post': d.get('management', {}).get('post'),
+            'address': address.get('value'),
+            'director': management.get('name'),
+            'director_post': management.get('post'),
             'okved': d.get('okved'),
-            'okved_name': d.get('okved_type'),
         })
 
     return {
